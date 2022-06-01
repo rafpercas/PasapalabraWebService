@@ -13,14 +13,6 @@ public interface Manager<T, U> {
      */
     List<T> findAll(Connection con);
 
-    /**
-     * Finds all the entities in the DB based on a list of ids.
-     *
-     * @param con DB connection
-     * @param id  Entities id to search for.
-     * @return a {@link T}
-     */
-    T findByName(Connection con, U id);
 
     /**
      * Finds all the entities in the DB based on a list of ids.
@@ -31,5 +23,6 @@ public interface Manager<T, U> {
      */
     List<T> findAllByIds(Connection con, Set<U> ids);
 
+    int create(Connection con, T entity);
 
 }

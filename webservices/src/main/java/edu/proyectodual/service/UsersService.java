@@ -1,7 +1,6 @@
 package edu.proyectodual.service;
 
 
-
 import edu.proyectodual.model.connector.MySQLConnector;
 import edu.proyectodual.model.dao.Users;
 import edu.proyectodual.model.manager.UsersManager;
@@ -14,7 +13,8 @@ import java.util.List;
 public class UsersService {
 
     private final UsersManager usersManager;
-    public UsersService(UsersManagerImpl usersManager){
+
+    public UsersService(UsersManagerImpl usersManager) {
         this.usersManager = usersManager;
     }
 
@@ -26,9 +26,23 @@ public class UsersService {
 
     public Users findByName(String name) throws SQLException, ClassNotFoundException {
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
-            return usersManager.findByName(con,name);
+            return usersManager.findByName(con, name);
         }
     }
 
+    public int createUser(Users users) throws SQLException, ClassNotFoundException {
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+            return usersManager.create(con, users);
+        }
+    }
+
+    public boolean validateUser(String name, String password) throws SQLException, ClassNotFoundException {
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+
+           return usersManager.validateUser(con,name,password) != null;
+
+
+        }
+    }
 
 }

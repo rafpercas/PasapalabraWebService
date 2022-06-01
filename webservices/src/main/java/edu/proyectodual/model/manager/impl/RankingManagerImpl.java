@@ -23,12 +23,9 @@ public class RankingManagerImpl implements RankingManager {
             ResultSet result = stmt.executeQuery();
             result.beforeFirst();
 
-            // Initialize variable
             Ranking ranking = null;
             List<Ranking> listaRanking = new ArrayList<>();
-            // Run through each result
             while (result.next()) {
-                // Initializes a city per result
                 ranking = new Ranking(result);
 
                 listaRanking.add(ranking);
@@ -43,13 +40,15 @@ public class RankingManagerImpl implements RankingManager {
         }
     }
 
-    @Override
-    public Object findByName(Connection con, Object id) {
-        return null;
-    }
+
 
     @Override
     public List findAllByIds(Connection con, Set ids) {
         return null;
+    }
+
+    @Override
+    public int create(Connection con, Object entity) {
+        return 0;
     }
 }

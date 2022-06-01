@@ -12,9 +12,11 @@ import java.util.List;
 
 public class RankingService {
     private RankingManager rankingManager;
-    public RankingService(RankingManagerImpl rankingManager){
+
+    public RankingService(RankingManagerImpl rankingManager) {
         this.rankingManager = rankingManager;
     }
+
     public List<Users> findAll() throws SQLException, ClassNotFoundException {
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
             return rankingManager.findAll(con);

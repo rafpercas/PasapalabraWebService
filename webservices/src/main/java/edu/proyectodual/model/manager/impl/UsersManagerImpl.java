@@ -4,20 +4,16 @@ import edu.proyectodual.model.dao.Users;
 import edu.proyectodual.model.manager.UsersManager;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashSet;
+import java.sql.*;
 import java.util.List;
 import java.util.Set;
 
 public class UsersManagerImpl implements UsersManager {
     @Override
-    public Set<Users> validateUser(Connection con, String name, String password) {
-        String sql = "select name,password "
-                + "from Users"
-                + "where  name = ?"
+    public Users validateUser(Connection con, String name, String password) {
+        String sql = "select * "
+                + "from Users "
+                + "where  name = ? "
                 + "and password = ? ";
 
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -26,16 +22,14 @@ public class UsersManagerImpl implements UsersManager {
             ResultSet result = stmt.executeQuery();
             result.beforeFirst();
 
-            Set<Users> users = new HashSet<>();
 
-            while (result.next()) {
-                Users city = new Users(result);
-
-
-                users.add(city);
+            Users user = null;
+            if(result.next()){
+                user = new Users(result);
             }
 
-            return users;
+
+            return user;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,23 +45,18 @@ public class UsersManagerImpl implements UsersManager {
     @Override
     public Users findByName(Connection con, String name) {
 
-        String sql = "select name,email"
-                + "from Users"
+        String sql = "select * "
+                + "from Users "
                 + "where  name = ?";
 
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, name);
             ResultSet result = stmt.executeQuery();
             result.beforeFirst();
+            result.next();
 
-            // Initialize variable
-            Users user = null;
+            Users user = new Users(result);
 
-            // Run through each result
-            while (result.next()) {
-                // Initializes a city per result
-                user = new Users(result);
-            }
 
             return user;
 
@@ -80,6 +69,36 @@ public class UsersManagerImpl implements UsersManager {
     @Override
     public List<Users> findAllByIds(Connection con, Set<String> ids) {
         return null;
+    }
+
+    @Override
+    public int create(Connection con, Users user) {
+        //prepare SQL statement
+        String sql = "INSERT INTO Users (name, email, password) values(?,?,?)";
+
+        // Create general statement
+        try (PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            //Add Parameters
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword());
+            // Queries the DB
+            int affectedRows = stmt.executeUpdate();
+
+            if(affectedRows<=0){
+                return 0;
+            }
+
+            ResultSet resultSet = stmt.getGeneratedKeys();
+            resultSet.beforeFirst();
+            resultSet.next();
+
+            return resultSet.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
 }
