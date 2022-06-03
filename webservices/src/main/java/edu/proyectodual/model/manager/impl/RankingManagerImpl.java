@@ -16,7 +16,7 @@ public class RankingManagerImpl implements RankingManager {
 
     @Override
     public List<Ranking> findAll(Connection con) {
-        String sql = "select *"
+        String sql = "select * "
                 + "from Ranking order by points desc";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
 
@@ -48,7 +48,7 @@ public class RankingManagerImpl implements RankingManager {
     }
 
     @Override
-    public int create(Connection con, Object entity) {
-        return 0;
+    public boolean create(Connection con, Object entity) {
+        return true;
     }
 }

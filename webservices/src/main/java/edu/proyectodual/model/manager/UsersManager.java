@@ -18,6 +18,7 @@ public interface UsersManager extends Manager<Users,String> {
      * @return a {@link Users}
      */
     Users findByName(Connection con, String name);
+    Users findByEmail(Connection con, String email);
 
-    int create(Connection con, Users user);
+
 }

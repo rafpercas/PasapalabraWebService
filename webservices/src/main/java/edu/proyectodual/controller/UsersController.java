@@ -38,14 +38,28 @@ public class UsersController {
             return Response.status(500).entity("Internal Error during DB interaction.").build();
         }
     }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/email/{email}")
+    public Response getUsersByEmail(@PathParam("email" )String email) throws SQLException, ClassNotFoundException{
+        try {
+            if (email == null) {
+                return Response.status(400).entity("Incorrect parameters.").build();
+            } else {
+                return Response.ok(usersService.findByEmail(email)).build();
+            }
+        } catch (SQLException | ClassNotFoundException e){
+            return Response.status(500).entity("Internal Error during DB interaction.").build();
+        }
+    }
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/createuser")
     public Response createUser(Users user) {
         try {
-            int createdId = usersService.createUser(user);
-            if (createdId > 0) {
+
+            if (usersService.createUser(user)) {
                 return Response.status(201).entity(usersService.findByName(user.getName())).build();
             } else {
                 return Response.status(500).entity("Internal Error During Creating The User").build();

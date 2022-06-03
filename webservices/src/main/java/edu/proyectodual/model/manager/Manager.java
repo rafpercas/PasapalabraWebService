@@ -23,6 +23,6 @@ public interface Manager<T, U> {
      */
     List<T> findAllByIds(Connection con, Set<U> ids);
 
-    int create(Connection con, T entity);
+    boolean create(Connection con, T entity);
 
 }

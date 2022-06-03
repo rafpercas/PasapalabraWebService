@@ -29,8 +29,13 @@ public class UsersService {
             return usersManager.findByName(con, name);
         }
     }
+    public Users findByEmail(String email) throws SQLException, ClassNotFoundException {
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+            return usersManager.findByEmail(con, email);
+        }
+    }
 
-    public int createUser(Users users) throws SQLException, ClassNotFoundException {
+    public boolean createUser(Users users) throws SQLException, ClassNotFoundException {
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
             return usersManager.create(con, users);
         }
