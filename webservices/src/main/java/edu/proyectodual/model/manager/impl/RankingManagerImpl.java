@@ -1,7 +1,6 @@
 package edu.proyectodual.model.manager.impl;
 
 import edu.proyectodual.model.dao.Ranking;
-import edu.proyectodual.model.dao.Users;
 import edu.proyectodual.model.manager.RankingManager;
 
 import java.sql.Connection;
@@ -40,7 +39,27 @@ public class RankingManagerImpl implements RankingManager {
         }
     }
 
+    @Override
+    public boolean create(Connection con, Ranking ranking) {
+        //prepare SQL statement
+        String sql = "INSERT INTO Ranking (name, points) values(?,?)";
 
+        // Create general statement
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            //Add Parameters
+            stmt.setString(1, ranking.getName());
+            stmt.setInt(2, ranking.getPoints());
+
+            // Queries the DB
+            stmt.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     @Override
     public List findAllByIds(Connection con, Set ids) {

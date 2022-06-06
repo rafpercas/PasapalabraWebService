@@ -1,6 +1,7 @@
 package edu.proyectodual.service;
 
 import edu.proyectodual.model.connector.MySQLConnector;
+import edu.proyectodual.model.dao.Ranking;
 import edu.proyectodual.model.dao.Users;
 import edu.proyectodual.model.manager.RankingManager;
 import edu.proyectodual.model.manager.impl.RankingManagerImpl;
@@ -20,6 +21,11 @@ public class RankingService {
     public List<Users> findAll() throws SQLException, ClassNotFoundException {
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
             return rankingManager.findAll(con);
+        }
+    }
+    public boolean createRanking(Ranking ranking) throws SQLException, ClassNotFoundException {
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+            return rankingManager.create(con, ranking);
         }
     }
 }
