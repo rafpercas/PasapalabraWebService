@@ -1,9 +1,6 @@
 package edu.proyectodual.model.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +9,7 @@ import java.sql.SQLException;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Builder
 public class Preguntas {
     private String pregunta;
     private String respuesta;

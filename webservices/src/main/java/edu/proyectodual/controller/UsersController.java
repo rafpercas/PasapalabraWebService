@@ -1,5 +1,9 @@
 package edu.proyectodual.controller;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import edu.proyectodual.crearpdf.PdfCreator;
+import edu.proyectodual.email.Sender;
 import edu.proyectodual.model.dao.Users;
 import edu.proyectodual.model.manager.impl.UsersManagerImpl;
 import edu.proyectodual.service.UsersService;
@@ -7,6 +11,10 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 
 @Path("/users")
@@ -52,6 +60,33 @@ public class UsersController {
             return Response.status(500).entity("Internal Error during DB interaction.").build();
         }
     }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/cuenta/{email}")
+    public Response enviarCuenta(@PathParam("email" )String email) throws SQLException, ClassNotFoundException, FileNotFoundException {
+        try {
+            if (email == null) {
+                return Response.status(400).entity("Incorrect parameters.").build();
+            } else {
+                Users usuarioRecibido = new Users(usersService.findByEmail(email).getName(),
+                        usersService.findByEmail(email).getEmail(),usersService.findByEmail(email).getPassword());
+                String content = "Nombre de usuario: " + usuarioRecibido.getName() + "\n" + "Contraseña: " + usuarioRecibido.getPassword();
+
+                PdfCreator pdfCreator = new PdfCreator();
+                pdfCreator.createPdf("datosusuario",content);
+
+
+                Sender sender = new Sender();
+
+                sender.send("proyectodualpasapalabra@gmail.com", email, "Recuperación de cuenta", content );
+                return Response.ok(usersService.findByEmail(email)).build();
+
+            }
+        } catch (SQLException | ClassNotFoundException | DocumentException | IOException | URISyntaxException e){
+            return Response.status(500).entity("Internal Error during DB interaction.").build();
+        }
+    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -84,4 +119,5 @@ public class UsersController {
             return Response.status(500).entity("Internal Error During DB Interaction").build();
         }
     }
+
 }

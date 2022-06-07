@@ -1,8 +1,10 @@
 package edu.proyectodual.model.dao;
 
+import lombok.AllArgsConstructor;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+@AllArgsConstructor
 public class Users {
     private String name;
     private String email;
