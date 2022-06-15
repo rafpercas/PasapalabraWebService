@@ -1,11 +1,9 @@
 package edu.proyectodual.controller;
 
-import edu.proyectodual.model.dao.Ranking;
-import edu.proyectodual.model.dao.Users;
-import edu.proyectodual.model.manager.impl.RankingManagerImpl;
-import edu.proyectodual.model.manager.impl.UsersManagerImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import edu.proyectodual.model.application.dao.Ranking;
+import edu.proyectodual.model.application.manager.impl.RankingManagerImpl;
 import edu.proyectodual.service.RankingService;
-import edu.proyectodual.service.UsersService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -19,14 +17,14 @@ public class RankingController {
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAll() throws SQLException, ClassNotFoundException{
+    public Response findAll() throws SQLException, ClassNotFoundException, JsonProcessingException {
         return  Response.ok().entity(rankingService.findAll()).build();
     }
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/addranking")
-    public Response createRanking(Ranking ranking) {
+    public Response createRanking(Ranking ranking) throws JsonProcessingException {
         try {
 
             if (rankingService.createRanking(ranking)) {

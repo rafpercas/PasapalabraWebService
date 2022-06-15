@@ -1,4 +1,4 @@
-package edu.proyectodual.model.manager;
+package edu.proyectodual.model.application.manager;
 
 import java.sql.Connection;
 import java.util.List;

@@ -1,4 +1,4 @@
-package edu.proyectodual.model.connector;
+package edu.proyectodual.model.application.connector;
 
 public class MySQLConstants {
     public static final String PASSWD = "jdbc.mysql.passwd";

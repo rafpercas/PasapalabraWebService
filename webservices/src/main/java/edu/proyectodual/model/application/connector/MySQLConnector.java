@@ -1,4 +1,4 @@
-package edu.proyectodual.model.connector;
+package edu.proyectodual.model.application.connector;
 
 import java.io.IOException;
 import java.sql.Connection;

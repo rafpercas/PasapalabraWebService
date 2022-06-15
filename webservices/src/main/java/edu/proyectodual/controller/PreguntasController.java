@@ -1,9 +1,8 @@
 package edu.proyectodual.controller;
 
-import edu.proyectodual.model.manager.impl.PreguntasManagerImpl;
-import edu.proyectodual.model.manager.impl.RankingManagerImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import edu.proyectodual.model.application.manager.impl.PreguntasManagerImpl;
 import edu.proyectodual.service.PreguntasService;
-import edu.proyectodual.service.RankingService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -23,7 +22,7 @@ public class PreguntasController {
         @GET
         @Produces(MediaType.APPLICATION_JSON)
         @Path("/{letra}")
-        public Response respuestasCon(@PathParam("letra" )String letra) throws SQLException, ClassNotFoundException{
+        public Response respuestasCon(@PathParam("letra" )String letra) throws SQLException, ClassNotFoundException, JsonProcessingException {
             return  Response.ok().entity(preguntasService.respuestasCon(letra)).build();
         }
 }

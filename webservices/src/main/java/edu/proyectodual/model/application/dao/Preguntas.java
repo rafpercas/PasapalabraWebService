@@ -1,4 +1,4 @@
-package edu.proyectodual.model.dao;
+package edu.proyectodual.model.application.dao;
 
 import lombok.*;
 

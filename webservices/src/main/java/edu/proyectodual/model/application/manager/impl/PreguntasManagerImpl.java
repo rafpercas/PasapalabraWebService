@@ -1,7 +1,7 @@
-package edu.proyectodual.model.manager.impl;
+package edu.proyectodual.model.application.manager.impl;
 
-import edu.proyectodual.model.dao.Preguntas;
-import edu.proyectodual.model.manager.PreguntasManager;
+import edu.proyectodual.model.application.dao.Preguntas;
+import edu.proyectodual.model.application.manager.PreguntasManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

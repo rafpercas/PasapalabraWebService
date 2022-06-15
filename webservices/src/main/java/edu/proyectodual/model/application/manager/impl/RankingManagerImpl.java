@@ -1,7 +1,7 @@
-package edu.proyectodual.model.manager.impl;
+package edu.proyectodual.model.application.manager.impl;
 
-import edu.proyectodual.model.dao.Ranking;
-import edu.proyectodual.model.manager.RankingManager;
+import edu.proyectodual.model.application.dao.Ranking;
+import edu.proyectodual.model.application.manager.RankingManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

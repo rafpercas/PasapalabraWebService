@@ -1,9 +1,8 @@
-package edu.proyectodual.model.manager;
+package edu.proyectodual.model.application.manager;
 
-import edu.proyectodual.model.dao.Users;
+import edu.proyectodual.model.application.dao.Users;
 
 import java.sql.Connection;
-import java.util.Set;
 
 public interface UsersManager extends Manager<Users,String> {
 

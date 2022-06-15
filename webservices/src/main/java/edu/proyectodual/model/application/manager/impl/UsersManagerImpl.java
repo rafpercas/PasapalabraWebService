@@ -1,7 +1,7 @@
-package edu.proyectodual.model.manager.impl;
+package edu.proyectodual.model.application.manager.impl;
 
-import edu.proyectodual.model.dao.Users;
-import edu.proyectodual.model.manager.UsersManager;
+import edu.proyectodual.model.application.dao.Users;
+import edu.proyectodual.model.application.manager.UsersManager;
 
 
 import java.sql.*;

@@ -1,18 +1,17 @@
 package edu.proyectodual.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
 import edu.proyectodual.crearpdf.PdfCreator;
 import edu.proyectodual.email.Sender;
-import edu.proyectodual.model.dao.Users;
-import edu.proyectodual.model.manager.impl.UsersManagerImpl;
+import edu.proyectodual.model.application.dao.Users;
+import edu.proyectodual.model.application.manager.impl.UsersManagerImpl;
 import edu.proyectodual.service.UsersService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
@@ -35,7 +34,7 @@ public class UsersController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{name}")
-    public Response findByName(@PathParam("name" )String name) throws SQLException, ClassNotFoundException{
+    public Response findByName(@PathParam("name" )String name) throws SQLException, ClassNotFoundException, JsonProcessingException {
         try {
             if (name == null) {
                 return Response.status(400).entity("Incorrect parameters.").build();
@@ -49,7 +48,7 @@ public class UsersController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/email/{email}")
-    public Response getUsersByEmail(@PathParam("email" )String email) throws SQLException, ClassNotFoundException{
+    public Response getUsersByEmail(@PathParam("email" )String email) throws JsonProcessingException,SQLException, ClassNotFoundException{
         try {
             if (email == null) {
                 return Response.status(400).entity("Incorrect parameters.").build();
@@ -91,7 +90,7 @@ public class UsersController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/createuser")
-    public Response createUser(Users user) {
+    public Response createUser(Users user) throws JsonProcessingException{
         try {
 
             if (usersService.createUser(user)) {
@@ -107,7 +106,7 @@ public class UsersController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/validateuser")
-    public Response validateUser(Users users) {
+    public Response validateUser(Users users)throws JsonProcessingException {
         try {
 
             if (usersService.validateUser(users.getName(),users.getPassword())) {
