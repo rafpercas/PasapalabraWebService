@@ -77,7 +77,7 @@ public class UsersService {
             logService.registerLog(
                     Log.builder().fecha(LocalDateTime.now())
                             .logStatus(LogStatus.OK).titulo("Validando usuario.")
-                            .mensaje("Validando usuario con nombre "+name+" y contraseña "+password).build());
+                            .mensaje("Validando usuario con nombre "+name).build());
             logService.registerLog(
                     Log.builder().fecha(LocalDateTime.now())
                             .logStatus(LogStatus.OK).titulo("Usuario validado.")
